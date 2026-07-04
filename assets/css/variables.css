@@ -1,0 +1,174 @@
+/* =========================================================
+   Bacheliers Néo — Variables globales du projet
+   assets/css/variables.css
+   -> chargé EN PREMIER sur toutes les pages (avant style.css
+      et responsive.css), car il ne contient que des tokens
+      (couleurs, typo, radius, ombres) et aucune règle visuelle.
+   ========================================================= */
+
+:root {
+
+  /* ---------------------------------------------------------
+     1. PALETTE DE MARQUE
+     Couleurs de base issues du kit UI (Primary / Secondary /
+     Tertiary / Neutral). Chaque couleur de base correspond au
+     palier 600 ; les autres paliers (50 à 900) sont dérivés
+     par mélange (blanc pour les teintes claires, noir pour les
+     teintes foncées) afin d'obtenir des variantes cohérentes
+     pour les fonds, bordures, hover et textes.
+     ⚠️ Si le kit Stitch exporte une rampe de teintes exacte,
+     remplace simplement les valeurs ci-dessous par celles-ci.
+     --------------------------------------------------------- */
+
+  /* Primary — bleu (#0D47A1) */
+  --color-primary-50:  #F3F6FA;
+  --color-primary-100: #E7EDF6;
+  --color-primary-200: #C2D1E8;
+  --color-primary-300: #9EB5D9;
+  --color-primary-400: #6E91C7;
+  --color-primary-500: #3D6CB4;
+  --color-primary-600: #0D47A1; /* couleur de base du kit */
+  --color-primary-700: #0B3C89;
+  --color-primary-800: #093271;
+  --color-primary-900: #072759;
+
+  /* Secondary — vert (#2E7D32) */
+  --color-secondary-50:  #F5F8F5;
+  --color-secondary-100: #EAF2EA;
+  --color-secondary-200: #CBDECC;
+  --color-secondary-300: #ABCBAD;
+  --color-secondary-400: #82B184;
+  --color-secondary-500: #58975B;
+  --color-secondary-600: #2E7D32; /* couleur de base du kit */
+  --color-secondary-700: #276A2A;
+  --color-secondary-800: #205823;
+  --color-secondary-900: #19451C;
+
+  /* Tertiary — terracotta (#853100) */
+  --color-tertiary-50:  #F9F5F2;
+  --color-tertiary-100: #F3EAE6;
+  --color-tertiary-200: #E0CCBF;
+  --color-tertiary-300: #CEAD99;
+  --color-tertiary-400: #B68366;
+  --color-tertiary-500: #9D5A33;
+  --color-tertiary-600: #853100; /* couleur de base du kit */
+  --color-tertiary-700: #712A00;
+  --color-tertiary-800: #5D2200;
+  --color-tertiary-900: #491B00;
+
+  /* Neutral — gris (#76777E) */
+  --color-neutral-50:  #F8F8F9;
+  --color-neutral-100: #F1F1F2;
+  --color-neutral-200: #DDDDDF;
+  --color-neutral-300: #C8C9CB;
+  --color-neutral-400: #ADADB2;
+  --color-neutral-500: #919298;
+  --color-neutral-600: #76777E; /* couleur de base du kit */
+  --color-neutral-700: #64656B;
+  --color-neutral-800: #535358;
+  --color-neutral-900: #414145;
+
+  /* Couleurs d'état (utilisées pour les messages d'erreur/succès) */
+  --color-danger: #C62828;
+  --color-danger-bg: #FDECEA;
+  --color-success: var(--color-secondary-700);
+  --color-success-bg: var(--color-secondary-50);
+
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+
+  /* ---------------------------------------------------------
+     2. TOKENS SÉMANTIQUES
+     Ce sont ces variables-là que les fichiers de composants
+     (style.css, chat.css, dashboard.css, etc.) doivent utiliser
+     — jamais les --color-*-XXX directement — pour que toute
+     l'app reste cohérente si la palette évolue un jour.
+     --------------------------------------------------------- */
+
+  /* Marque */
+  --bn-blue:        var(--color-primary-600);
+  --bn-blue-dark:   var(--color-primary-800);
+  --bn-blue-light:  var(--color-primary-50);
+
+  --bn-green:       var(--color-secondary-600);
+  --bn-green-dark:  var(--color-secondary-800);
+  --bn-green-light: var(--color-secondary-50);
+
+  --bn-tertiary:       var(--color-tertiary-600);
+  --bn-tertiary-dark:  var(--color-tertiary-800);
+  --bn-tertiary-light: var(--color-tertiary-50);
+
+  /* Fond / surfaces */
+  --bn-bg:        var(--color-neutral-50);
+  --bn-card-bg:   var(--color-white);
+  --bn-input-bg:  var(--color-white);
+  --bn-photo-bg:  var(--color-neutral-100);
+
+  /* Texte */
+  --bn-text:        var(--color-neutral-900);
+  --bn-text-muted:  var(--color-neutral-600);
+  --bn-text-subtle: var(--color-neutral-500);
+
+  /* Bordures */
+  --bn-border: var(--color-neutral-200);
+
+  /* ---------------------------------------------------------
+     3. TYPOGRAPHIE (police Inter, kit UI)
+     --------------------------------------------------------- */
+
+  --font-family-base: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+
+  /* Échelle correspondant aux 3 rôles du kit : Headline / Body / Label */
+  --font-size-headline: 1.75rem;   /* titres de page */
+  --font-weight-headline: 700;
+
+  --font-size-body: 1rem;          /* texte courant */
+  --font-weight-body: 400;
+
+  --font-size-label: 0.875rem;     /* labels de champs, boutons */
+  --font-weight-label: 600;
+
+  --font-size-caption: 0.78rem;    /* mentions légères, aide */
+  --font-weight-caption: 500;
+
+  --line-height-base: 1.45;
+
+  /* ---------------------------------------------------------
+     4. RADIUS / RAYONS DE BORDURE
+     --------------------------------------------------------- */
+
+  --radius-sm:   0.5rem;
+  --radius-md:   0.9rem;   /* champs de formulaire */
+  --radius-lg:   1.75rem;  /* cartes */
+  --radius-pill: 50rem;    /* boutons arrondis */
+  --radius-circle: 50%;
+
+  /* rétro-compatibilité avec les noms utilisés dans style.css */
+  --bn-radius-card:  var(--radius-lg);
+  --bn-radius-input: var(--radius-md);
+
+  /* ---------------------------------------------------------
+     5. OMBRES
+     --------------------------------------------------------- */
+
+  --shadow-card: 0 10px 30px rgba(20, 30, 70, 0.08);
+  --shadow-focus-primary: 0 0 0 0.2rem rgba(13, 71, 161, 0.12);
+
+  /* ---------------------------------------------------------
+     6. TRANSITIONS
+     --------------------------------------------------------- */
+
+  --transition-fast: 0.15s ease;
+  --transition-tap: 0.05s ease;
+
+  /* ---------------------------------------------------------
+     7. ESPACEMENTS (échelle commune, optionnelle)
+     --------------------------------------------------------- */
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+}

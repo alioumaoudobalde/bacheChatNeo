@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bacheliers Néo</title>
+  </head>
+  <body>
+    <script type="module">
+      import { observeAuth } from "./assets/js/services/authService.js";
+
+      observeAuth((user) => {
+        window.location.replace(user ? "dashboard.html" : "login.html");
+      });
+    </script>
+  </body>
+</html>

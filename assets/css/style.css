@@ -1,0 +1,391 @@
+/* =========================================================
+   Bacheliers Néo — Styles pages d'authentification
+   (register.html / login.html)
+   assets/css/style.css
+
+   Ordre de chargement attendu dans le <head> :
+     1. variables.css   (tokens : couleurs, typo, radius...)
+     2. style.css        (ce fichier — composants, mise en page)
+     3. responsive.css   (surcharges par breakpoint)
+
+   Ce fichier ne définit AUCUNE couleur/valeur en dur : tout
+   passe par les variables de assets/css/variables.css.
+   ========================================================= */
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--bn-bg);
+  color: var(--bn-text);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-body);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5) var(--space-4);
+}
+
+/* -------------------- Carte principale -------------------- */
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--bn-card-bg);
+  border-radius: var(--bn-radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 2.25rem 1.75rem 2rem;
+}
+
+/* -------------------- En-tête / branding -------------------- */
+
+.auth-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-circle);
+  background-color: var(--bn-blue);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.9rem;
+  margin: 0 auto 1rem;
+}
+
+.auth-brand {
+  color: var(--bn-blue);
+  font-weight: var(--font-weight-headline);
+  font-size: var(--font-size-headline);
+  text-align: center;
+  margin-bottom: 0.4rem;
+}
+
+.auth-subtitle {
+  color: var(--bn-text-muted);
+  text-align: center;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-base);
+  margin-bottom: var(--space-5);
+}
+
+/* -------------------- Upload photo (register) -------------------- */
+
+.photo-upload {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+}
+
+.photo-upload-circle {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-circle);
+  background-color: var(--bn-photo-bg);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bn-text-muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0;
+  transition: background-color var(--transition-fast);
+  position: relative;
+}
+
+.photo-upload-circle:hover,
+.photo-upload-circle:focus-visible {
+  background-color: var(--color-neutral-200);
+}
+
+.photo-upload-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-circle);
+}
+
+.photo-upload-label {
+  font-size: var(--font-size-caption);
+  color: var(--bn-text-muted);
+  font-weight: var(--font-weight-caption);
+}
+
+.photo-upload input[type="file"] {
+  display: none;
+}
+
+/* -------------------- Champs de formulaire -------------------- */
+
+.form-label {
+  font-weight: var(--font-weight-label);
+  font-size: var(--font-size-label);
+  color: var(--bn-text);
+  margin-bottom: 0.4rem;
+}
+
+.form-control {
+  border: 1px solid var(--bn-border);
+  border-radius: var(--bn-radius-input);
+  background-color: var(--bn-input-bg);
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  color: var(--bn-text);
+}
+
+.form-control::placeholder {
+  color: var(--color-neutral-400);
+}
+
+.form-control:focus {
+  border-color: var(--bn-blue);
+  box-shadow: var(--shadow-focus-primary);
+}
+
+.password-field {
+  position: relative;
+}
+
+.password-field .form-control {
+  padding-right: 2.75rem;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 2.75rem;
+  border: none;
+  background: transparent;
+  color: var(--bn-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  padding: 0;
+}
+
+.password-toggle:focus-visible {
+  outline: 2px solid var(--bn-blue);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.field-forgot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.4rem;
+}
+
+.field-forgot a {
+  font-size: 0.82rem;
+  color: var(--bn-blue);
+  text-decoration: none;
+  font-weight: var(--font-weight-label);
+}
+
+.field-forgot a:hover {
+  text-decoration: underline;
+}
+
+/* -------------------- Bouton principal -------------------- */
+
+.btn-auth {
+  width: 100%;
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 0.85rem 1rem;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-white);
+  background-color: var(--bn-green);
+  transition: background-color var(--transition-fast), transform var(--transition-tap);
+}
+
+.btn-auth:hover {
+  background-color: var(--bn-green-dark);
+  color: var(--color-white);
+}
+
+.btn-auth:active {
+  transform: scale(0.99);
+}
+
+.btn-auth:disabled {
+  opacity: 0.65;
+}
+
+/* -------------------- Bas de carte -------------------- */
+
+.auth-switch {
+  text-align: center;
+  font-size: 0.92rem;
+  color: var(--bn-text);
+  margin-top: 1.35rem;
+}
+
+.auth-switch a {
+  color: var(--bn-blue);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+.auth-terms {
+  text-align: center;
+  font-size: var(--font-size-caption);
+  color: var(--color-neutral-500);
+  margin-top: var(--space-4);
+  line-height: 1.5;
+}
+
+.auth-terms a {
+  color: var(--color-neutral-500);
+  text-decoration: underline;
+}
+
+/* -------------------- Messages d'erreur / feedback -------------------- */
+
+.auth-alert {
+  display: none;
+  font-size: 0.85rem;
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.9rem;
+  margin-bottom: var(--space-4);
+}
+
+.auth-alert.is-visible {
+  display: block;
+}
+
+/* -------------------- Pages connectees -------------------- */
+
+body.app-body {
+  display: block;
+  padding: 0;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.site-header {
+  background: var(--bn-card-bg);
+  border-bottom: 1px solid var(--bn-border);
+}
+
+.app-container {
+  width: min(100% - 2rem, 980px);
+  margin: 0 auto;
+}
+
+.app-nav {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.brand {
+  color: var(--bn-blue);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a,
+.nav-links button {
+  color: var(--bn-text);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.nav-links button {
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.app-main {
+  padding: var(--space-6) 0;
+}
+
+.card {
+  background: var(--bn-card-bg);
+  border: 1px solid var(--bn-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-5);
+}
+
+.dashboard-hero {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.profile-photo,
+.profile-initials {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-circle);
+}
+
+.profile-photo {
+  object-fit: cover;
+}
+
+.profile-initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bn-blue);
+  color: var(--color-white);
+  font-weight: 800;
+}
+
+.muted {
+  color: var(--bn-text-muted);
+}
+
+.quick-actions {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.action-link {
+  display: block;
+  color: var(--bn-blue);
+  font-weight: 700;
+  text-decoration: none;
+}

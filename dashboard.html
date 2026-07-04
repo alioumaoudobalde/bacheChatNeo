@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bacheliers Néo | Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/variables.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+  </head>
+  <body class="app-body">
+    <div class="app-shell">
+      <header class="site-header">
+      <nav class="app-nav app-container">
+        <a href="index.html" class="brand">Bacheliers Néo</a>
+        <ul class="nav-links">
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="chat.html">Chat</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="profile.html">Profil</a></li>
+          <li><button type="button" data-logout>Deconnexion</button></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="app-main app-container">
+      <section class="card dashboard-hero">
+        <div>
+          <img id="userPhoto" class="profile-photo" src="" alt="" hidden />
+          <div id="userInitials" class="profile-initials" aria-hidden="true">BN</div>
+        </div>
+        <div>
+          <p class="muted">Bienvenue</p>
+          <h1>Bonjour <span id="welcomeName">...</span></h1>
+          <p>
+            <strong id="userName">...</strong><br />
+            <span id="userEmail" class="muted">...</span><br />
+            <span id="userRole" class="muted">...</span>
+          </p>
+        </div>
+      </section>
+
+      <section class="quick-actions">
+        <article class="card">
+          <h2>Campusen</h2>
+          <p class="muted">Acceder rapidement a la plateforme nationale d'orientation.</p>
+          <a class="action-link" href="https://orientation.campusen.sn" target="_blank" rel="noopener">Ouvrir Campusen</a>
+        </article>
+        <article class="card">
+          <h2>Communaute</h2>
+          <p class="muted">Pose tes questions et suis les prochaines etapes avec les autres bacheliers.</p>
+          <a class="action-link" href="chat.html">Aller au chat</a>
+        </article>
+      </section>
+    </main>
+    </div>
+
+    <script type="module" src="assets/js/pages/dashboard.js"></script>
+  </body>
+</html>
