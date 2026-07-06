@@ -1,4 +1,85 @@
-import { auth, storage } from "../../../firebase/firebase-config.js";
+import { auth } from "../../../firebase/firebase-config.js";
+
+import { getRandomAvatar } from "../utils/avatars.js";
+
+import {
+  createUserProfile,
+  updateUserPresence,
+} from "./firestoreService.js";
+
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
+  onAuthStateChanged,
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+/**
+ * Création d'un compte
+ */
+export async function register(fullName, email, password) {
+  const credential = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password,
+  );
+
+  const photoUrl = getRandomAvatar();
+
+  await updateProfile(credential.user, {
+    displayName: fullName,
+    photoURL: photoUrl,
+  });
+
+  await createUserProfile(
+    credential.user,
+    fullName,
+    photoUrl,
+  );
+
+  return credential.user;
+}
+
+/**
+ * Connexion
+ */
+export async function login(email, password) {
+  const credential = await signInWithEmailAndPassword(
+    auth,
+    email,
+    password,
+  );
+
+  await updateUserPresence(credential.user, true);
+
+  return credential.user;
+}
+
+/**
+ * Déconnexion
+ */
+export async function logout() {
+  const user = auth.currentUser;
+
+  try {
+    if (user) {
+      await updateUserPresence(user, false);
+    }
+  } finally {
+    await signOut(auth);
+  }
+}
+
+/**
+ * Observer l'état d'authentification
+ */
+export function observeAuth(callback) {
+  return onAuthStateChanged(auth, callback);
+}
+
+/*import { auth, storage } from "../../../firebase/firebase-config.js";
+import { getRandomAvatar } from "../utils/avatars.js";
 
 import {
   createUserProfile,
@@ -33,9 +114,7 @@ async function uploadProfilePhoto(user, photoFile) {
   return getDownloadURL(photoRef);
 }
 
-/**
- * Création d'un compte
- */
+
 export async function register(fullName, email, password, photoFile = null) {
   const credential = await createUserWithEmailAndPassword(
     auth,
@@ -73,9 +152,7 @@ export async function register(fullName, email, password, photoFile = null) {
   return credential.user;
 }
 
-/**
- * Connexion
- */
+
 
 export async function login(email, password) {
   const credential = await signInWithEmailAndPassword(
@@ -91,10 +168,6 @@ export async function login(email, password) {
   return credential.user;
 }
 
-/**
- * Déconnexion
- */
-
 export async function logout() {
   const user = auth.currentUser;
 
@@ -107,14 +180,10 @@ export async function logout() {
   }
 }
 
-/**
- * Etat utilisateur
- */
-
 export function observeAuth(callback) {
   return onAuthStateChanged(
     auth,
 
     callback,
   );
-}
+} */

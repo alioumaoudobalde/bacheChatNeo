@@ -1,74 +1,33 @@
 /* =========================================================
-   Bacheliers Néo — Surcharges responsives du projet
-   assets/css/responsive.css
-   -> chargé EN DERNIER (après variables.css et style.css)
-      afin que ses règles priment dans la cascade.
-
-   Approche mobile-first : le style de base (mobile) est défini
-   dans style.css / les CSS de page. Ce fichier ne contient que
-   les AJUSTEMENTS par palier d'écran, regroupés par breakpoint
-   pour rester lisibles à mesure que le projet grandit.
-
-   Paliers alignés sur les breakpoints Bootstrap 5 déjà utilisés
-   dans le projet :
-     xs  < 576px   (téléphones étroits)
-     sm  ≥ 576px
-     md  ≥ 768px   (tablettes)
-     lg  ≥ 992px
-     xl  ≥ 1200px
+   Bacheliers Neo — Surcharges responsives du projet
    ========================================================= */
 
-
-/* =========================================================
-   Pages Authentification (register.html / login.html)
-   ========================================================= */
-
-/* --- Très petits téléphones (< 360px) --- */
 @media (max-width: 360px) {
   .auth-card {
     padding: 1.75rem 1.25rem 1.5rem;
   }
-}
 
-/* --- Tablettes et plus (≥ 768px) --- */
-@media (min-width: 768px) {
-  .auth-card {
-    max-width: 420px;
+  .home-header {
+    padding: 0 0.8rem;
+  }
+
+  .home-title {
+    font-size: 1.05rem;
+  }
+
+  .home-main {
+    padding-inline: 1rem;
+  }
+
+  .home-action-card {
+    grid-template-columns: 3.8rem minmax(0, 1fr) 1.5rem;
+    padding-left: 1rem;
+  }
+
+  .home-action-title {
+    font-size: 1.12rem;
   }
 }
-
-
-/* =========================================================
-   Dashboard (dashboard.html)
-   -> à compléter au fur et à mesure de l'intégration
-   ========================================================= */
-
-/* @media (min-width: 768px) { } */
-/* @media (min-width: 992px) { } */
-
-
-/* =========================================================
-   Chat (chat.html)
-   -> à compléter au fur et à mesure de l'intégration
-   ========================================================= */
-
-/* @media (min-width: 768px) { } */
-
-
-/* =========================================================
-   FAQ (faq.html)
-   -> à compléter au fur et à mesure de l'intégration
-   ========================================================= */
-
-/* @media (min-width: 768px) { } */
-
-
-/* =========================================================
-   Profil (profile.html)
-   -> à compléter au fur et à mesure de l'intégration
-   ========================================================= */
-
-/* @media (min-width: 768px) { } */
 
 @media (max-width: 720px) {
   .app-nav {
@@ -79,5 +38,11 @@
 
   .nav-links {
     flex-wrap: wrap;
+  }
+}
+
+@media (min-width: 768px) {
+  .auth-card {
+    max-width: 420px;
   }
 }

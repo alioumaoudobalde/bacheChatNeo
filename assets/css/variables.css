@@ -80,7 +80,7 @@
   /* ---------------------------------------------------------
      2. TOKENS SÉMANTIQUES
      Ce sont ces variables-là que les fichiers de composants
-     (style.css, chat.css, dashboard.css, etc.) doivent utiliser
+     (style.css, responsive.css, etc.) doivent utiliser
      — jamais les --color-*-XXX directement — pour que toute
      l'app reste cohérente si la palette évolue un jour.
      --------------------------------------------------------- */

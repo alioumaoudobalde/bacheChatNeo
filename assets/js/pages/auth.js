@@ -16,7 +16,9 @@ const registerForm = document.querySelector("#registerForm");
 
 const loginForm = document.querySelector("#loginForm");
 
-redirectIfAuthenticated("dashboard.html");
+let isAuthSubmitting = false;
+
+redirectIfAuthenticated("dashboard.html", () => !isAuthSubmitting);
 
 function showFormError(form, message) {
     const alert = form.closest(".auth-card")?.querySelector(".auth-alert");
@@ -80,6 +82,8 @@ if (registerForm) {
 
         try {
 
+            isAuthSubmitting = true;
+
             setFormLoading(registerForm, true);
 
             await register(
@@ -107,6 +111,8 @@ if (registerForm) {
         finally {
 
             setFormLoading(registerForm, false);
+
+            isAuthSubmitting = false;
 
         }
 
@@ -137,6 +143,8 @@ if (loginForm) {
 
         try {
 
+            isAuthSubmitting = true;
+
             setFormLoading(loginForm, true);
 
             await login(
@@ -160,6 +168,8 @@ if (loginForm) {
         finally {
 
             setFormLoading(loginForm, false);
+
+            isAuthSubmitting = false;
 
         }
 

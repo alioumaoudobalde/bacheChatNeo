@@ -11,9 +11,9 @@ export function getRedirectAfterLogin(defaultTarget = "dashboard.html") {
   return defaultTarget;
 }
 
-export function redirectIfAuthenticated(target = "dashboard.html") {
+export function redirectIfAuthenticated(target = "dashboard.html", canRedirect = () => true) {
   return observeAuth((user) => {
-    if (user) {
+    if (user && canRedirect(user)) {
       window.location.replace(target);
     }
   });

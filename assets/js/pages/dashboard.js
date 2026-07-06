@@ -1,5 +1,14 @@
 import { protectPage, setupLogoutButtons } from "../guards/authGuard.js";
-import { getUserProfile } from "../services/firestoreService.js";
+import {
+  getUserProfile,
+  updateUserProfileFields,
+} from "../services/firestoreService.js";
+
+function getFirstName(name, email) {
+  const source = name || email || "ami";
+
+  return source.split(" ")[0];
+}
 
 function getInitials(name, email) {
   const source = name || email || "Utilisateur";
@@ -24,23 +33,37 @@ function renderAvatar(photoUrl, name, email) {
   fallback.textContent = getInitials(name, email);
 
   if (photoUrl) {
-    image.src = photoUrl;
     image.alt = `Photo de ${name || "profil"}`;
-    image.hidden = false;
-    fallback.hidden = true;
+    image.onload = () => {
+      image.hidden = false;
+      fallback.hidden = true;
+    };
+    image.onerror = () => {
+      image.hidden = true;
+      fallback.hidden = false;
+    };
+    image.src = photoUrl;
+  } else {
+    image.hidden = true;
+    fallback.hidden = false;
   }
 }
 
 function renderUser(user, profile) {
-  const name = profile?.nomComplet || user.displayName || "nouveau bachelier";
+  const name = profile?.nomComplet || user.displayName || "";
   const email = profile?.email || user.email || "";
-  const role = profile?.role || "Etudiant";
-  const photoUrl = profile?.photoUrl || user.photoURL || "";
+  const photoUrl = profile?.photoUrl || profile?.photoURL || user.photoURL || "";
+  const welcomeName = document.querySelector("#welcomeName");
 
-  document.querySelector("#welcomeName").textContent = name;
-  document.querySelector("#userName").textContent = name;
-  document.querySelector("#userEmail").textContent = email;
-  document.querySelector("#userRole").textContent = role;
+  if (welcomeName) {
+    welcomeName.textContent = getFirstName(name, email);
+  }
+
+  if (!profile?.photoUrl && user.photoURL) {
+    updateUserProfileFields(user.uid, { photoUrl: user.photoURL }).catch((error) => {
+      console.warn("Impossible de synchroniser la photo de profil.", error);
+    });
+  }
 
   renderAvatar(photoUrl, name, email);
 }
