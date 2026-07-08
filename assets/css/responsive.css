@@ -1,48 +1,141 @@
 /* =========================================================
-   Bacheliers Neo — Surcharges responsives du projet
+   Bacheliers Néo — Surcharges responsives du projet
+   assets/css/responsive.css
+   -> chargé EN DERNIER (après variables.css et style.css)
+      afin que ses règles priment dans la cascade.
+
+   Approche mobile-first : le style de base (mobile) est défini
+   dans style.css / les CSS de page. Ce fichier ne contient que
+   les AJUSTEMENTS par palier d'écran, regroupés par breakpoint
+   pour rester lisibles à mesure que le projet grandit.
+
+   Paliers alignés sur les breakpoints Bootstrap 5 déjà utilisés
+   dans le projet :
+     xs  < 576px   (téléphones étroits)
+     sm  ≥ 576px
+     md  ≥ 768px   (tablettes)
+     lg  ≥ 992px
+     xl  ≥ 1200px
    ========================================================= */
 
+
+/* =========================================================
+   Pages Authentification (register.html / login.html)
+   ========================================================= */
+
+/* --- Très petits téléphones (< 360px) --- */
 @media (max-width: 360px) {
   .auth-card {
     padding: 1.75rem 1.25rem 1.5rem;
   }
-
-  .home-header {
-    padding: 0 0.8rem;
-  }
-
-  .home-title {
-    font-size: 1.05rem;
-  }
-
-  .home-main {
-    padding-inline: 1rem;
-  }
-
-  .home-action-card {
-    grid-template-columns: 3.8rem minmax(0, 1fr) 1.5rem;
-    padding-left: 1rem;
-  }
-
-  .home-action-title {
-    font-size: 1.12rem;
-  }
 }
 
-@media (max-width: 720px) {
-  .app-nav {
-    align-items: flex-start;
-    flex-direction: column;
-    padding: var(--space-4) 0;
-  }
-
-  .nav-links {
-    flex-wrap: wrap;
-  }
-}
-
+/* --- Tablettes et plus (≥ 768px) --- */
 @media (min-width: 768px) {
   .auth-card {
     max-width: 420px;
   }
 }
+
+
+/* =========================================================
+   Coquille d'app commune (page-app)
+   -> chat.html / dashboard.html / faq.html / profile.html
+   Sur tablette/desktop, on affiche la coquille comme un
+   "cadre téléphone" centré plutôt que de l'étirer plein écran.
+   ========================================================= */
+
+@media (min-width: 768px) {
+  body.page-app {
+    background: var(--color-neutral-200);
+  }
+
+  .app-shell {
+    max-width: 480px;
+    max-height: 900px;
+    margin: var(--space-5) auto;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--bn-border);
+    box-shadow: var(--shadow-card);
+  }
+}
+
+
+/* =========================================================
+   Dashboard (dashboard.html)
+   ========================================================= */
+
+/* --- Petits téléphones étroits (< 340px) --- */
+@media (max-width: 340px) {
+  .dashboard-welcome,
+  .dashboard-menu {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+
+  .dashboard-welcome-title {
+    font-size: 1.3rem;
+  }
+
+  .dashboard-avatar {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+/* --- Tablette et plus (≥ 768px) --- */
+@media (min-width: 768px) {
+  .dashboard-welcome-title {
+    font-size: 1.7rem;
+  }
+}
+
+
+/* =========================================================
+   Chat (chat.html)
+   ========================================================= */
+
+/* --- Petits téléphones étroits (< 340px) : réduire les espacements --- */
+@media (max-width: 340px) {
+  .chat-header,
+  .chat-body,
+  .chat-composer {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+
+  .chat-tabs {
+    padding: 0 var(--space-3);
+  }
+
+  .chat-tabs .nav {
+    gap: var(--space-4);
+  }
+
+  .chat-message {
+    max-width: 92%;
+  }
+}
+
+/* --- Tablette et plus (≥ 768px) : bulles un peu moins larges --- */
+@media (min-width: 768px) {
+  .chat-message {
+    max-width: 75%;
+  }
+}
+
+
+/* =========================================================
+   FAQ (faq.html)
+   -> à compléter au fur et à mesure de l'intégration
+   ========================================================= */
+
+/* @media (min-width: 768px) { } */
+
+
+/* =========================================================
+   Profil (profile.html)
+   -> à compléter au fur et à mesure de l'intégration
+   ========================================================= */
+
+/* @media (min-width: 768px) { } */

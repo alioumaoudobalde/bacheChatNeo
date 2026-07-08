@@ -1,7 +1,7 @@
 /* =========================================================
-   Bacheliers Néo — Styles pages d'authentification
-   (register.html / login.html)
+   Bacheliers Néo — Feuille de style commune du projet
    assets/css/style.css
+   (register.html, login.html, chat.html, puis dashboard/faq/profile)
 
    Ordre de chargement attendu dans le <head> :
      1. variables.css   (tokens : couleurs, typo, radius...)
@@ -10,10 +10,24 @@
 
    Ce fichier ne définit AUCUNE couleur/valeur en dur : tout
    passe par les variables de assets/css/variables.css.
+
+   Sommaire :
+     1. Base commune (reset léger, body)
+     2. Layout "page-auth"  -> register.html / login.html
+     3. Layout "page-app"   -> chat.html / dashboard / faq / profile
+     4. Navigation basse (app-bottom-nav) — partagée par page-app
+     5. En-tête d'application (app-header) — dashboard / faq / profile
+     6. Composants Chat (chat.html)
+     7. Composants Dashboard (dashboard.html)
    ========================================================= */
+
+/* ---------------------------------------------------------
+   1. Base commune
+   --------------------------------------------------------- */
 
 * {
   -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
 }
 
 html, body {
@@ -26,6 +40,15 @@ body {
   font-family: var(--font-family-base);
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-body);
+  margin: 0;
+}
+
+/* ---------------------------------------------------------
+   2. Layout "page-auth" — register.html / login.html
+   Carte centrée verticalement/horizontalement.
+   --------------------------------------------------------- */
+
+body.page-auth {
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -275,358 +298,589 @@ body {
   display: block;
 }
 
-/* -------------------- Pages connectees -------------------- */
+/* ---------------------------------------------------------
+   3. Layout "page-app" — chat.html / dashboard / faq / profile
+   Coquille plein écran : en-tête + contenu scrollable + nav basse,
+   aucune des trois ne défile la page entière (seul .chat-body
+   ou équivalent scrolle en interne).
+   --------------------------------------------------------- */
 
-body.app-body {
-  display: block;
+body.page-app {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   padding: 0;
 }
 
 .app-shell {
-  min-height: 100vh;
-}
-
-.site-header {
-  background: var(--bn-card-bg);
-  border-bottom: 1px solid var(--bn-border);
-}
-
-.app-container {
-  width: min(100% - 2rem, 980px);
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 480px;
+  height: 100%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--bn-bg);
+  overflow: hidden;
 }
 
-.app-nav {
-  min-height: 64px;
+/* ---------------------------------------------------------
+   4. Navigation basse — partagée par toutes les pages "app"
+   --------------------------------------------------------- */
+
+.app-bottom-nav {
+  flex-shrink: 0;
+  display: flex;
+  background: var(--bn-card-bg);
+  border-top: 1px solid var(--bn-border);
+  padding: var(--space-2) var(--space-2);
+  padding-bottom: calc(var(--space-2) + env(safe-area-inset-bottom));
+}
+
+.bottom-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: var(--space-1) 0;
+  color: var(--bn-text-muted);
+  text-decoration: none;
+  font-size: 0.72rem;
+  font-weight: var(--font-weight-label);
+  transition: color var(--transition-fast);
+}
+
+.bottom-nav-item:hover {
+  color: var(--bn-text);
+}
+
+.bottom-nav-icon {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4);
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: var(--radius-pill);
+  font-size: 1.25rem;
+  color: inherit;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
-.brand {
-  color: var(--bn-blue);
-  font-weight: 800;
-  text-decoration: none;
+.bottom-nav-item.active {
+  color: var(--color-secondary-700);
 }
 
-.nav-links {
+.bottom-nav-item.active .bottom-nav-icon {
+  background: var(--color-secondary-400);
+  color: var(--color-white);
+}
+
+/* ---------------------------------------------------------
+   5. En-tête d'application — dashboard.html / faq.html / profile.html
+   Variante générique avec titre aligné à gauche (contrairement
+   à .chat-header dont le titre est centré).
+   --------------------------------------------------------- */
+
+.app-header {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  padding: var(--space-4) var(--space-4) var(--space-3);
+  padding-top: calc(var(--space-4) + env(safe-area-inset-top));
+  background: var(--bn-bg);
+  border-bottom: 1px solid var(--bn-border);
+}
+
+.app-header-title {
+  color: var(--bn-blue);
+  font-weight: var(--font-weight-headline);
+  font-size: 1.1rem;
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* ---------------------------------------------------------
+   6. Composants Chat — chat.html
+   --------------------------------------------------------- */
+
+/* -------------------- En-tête -------------------- */
+
+.chat-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-4) var(--space-3);
+  padding-top: calc(var(--space-4) + env(safe-area-inset-top));
+  background: var(--bn-bg);
+}
+
+.chat-back {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-sm);
+  color: var(--bn-text);
+  font-size: 1.3rem;
+  text-decoration: none;
+  transition: background-color var(--transition-fast);
+}
+
+.chat-back:hover {
+  background: var(--color-neutral-100);
+  color: var(--bn-text);
+}
+
+.chat-title {
+  flex: 1;
+  text-align: center;
+  color: var(--bn-blue);
+  font-weight: var(--font-weight-headline);
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.chat-header-spacer {
+  flex-shrink: 0;
+  width: 2.25rem;
+}
+
+/* -------------------- Onglets des canaux -------------------- */
+
+.chat-tabs {
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--bn-border);
+  background: var(--bn-bg);
+  padding: 0 var(--space-4);
+}
+
+.chat-tabs .nav {
+  display: flex;
+  gap: var(--space-5);
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.nav-links a,
-.nav-links button {
+.chat-tab {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: var(--space-3) 0.1rem;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-label);
+  color: var(--bn-text-muted);
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.chat-tab:hover {
   color: var(--bn-text);
-  font: inherit;
-  font-weight: 600;
-  text-decoration: none;
 }
 
-.nav-links button {
-  border: 0;
-  background: transparent;
-  padding: 0;
+.chat-tab.active {
+  color: var(--bn-blue);
+  border-bottom-color: var(--bn-blue);
+  font-weight: 700;
 }
 
-.app-main {
-  padding: var(--space-6) 0;
+/* -------------------- Zone de messages -------------------- */
+
+.chat-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: var(--space-4);
 }
 
-.card {
-  background: var(--bn-card-bg);
-  border: 1px solid var(--bn-border);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-card);
-  padding: var(--space-5);
+.chat-messages {
+  padding-bottom: var(--space-3);
 }
 
-.dashboard-hero {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
+.tab-pane.chat-messages.active {
+  display: flex;
+  flex-direction: column;
   gap: var(--space-4);
-  margin-bottom: var(--space-5);
 }
 
-.profile-photo,
-.profile-initials {
-  width: 72px;
-  height: 72px;
+.chat-empty {
+  text-align: center;
+  color: var(--bn-text-muted);
+  font-size: 0.9rem;
+  padding: var(--space-6) var(--space-4);
+  margin: 0;
+}
+
+.chat-date-divider {
+  display: flex;
+  justify-content: center;
+  margin: var(--space-1) 0;
+}
+
+.chat-date-divider span {
+  background: var(--color-neutral-100);
+  color: var(--bn-text-muted);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-caption);
+  padding: 0.3rem 0.9rem;
+  border-radius: var(--radius-pill);
+}
+
+/* -------------------- Message individuel -------------------- */
+
+.chat-message {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+  max-width: 85%;
+}
+
+.chat-message--received {
+  align-self: flex-start;
+}
+
+.chat-message--sent {
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.chat-avatar {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
   border-radius: var(--radius-circle);
 }
 
-.profile-photo {
+.chat-avatar--photo {
   object-fit: cover;
+  background: var(--color-neutral-200);
 }
 
-.profile-initials {
+.chat-avatar--initial {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bn-blue);
+  background: var(--avatar-color, var(--bn-blue));
   color: var(--color-white);
-  font-weight: 800;
-}
-
-.muted {
-  color: var(--bn-text-muted);
-}
-
-.quick-actions {
-  display: grid;
-  gap: var(--space-4);
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-}
-
-.action-link {
-  display: block;
-  color: var(--bn-blue);
   font-weight: 700;
-  text-decoration: none;
-}
-
-/* =========================================================
-   Accueil / Dashboard (dashboard.html)
-   ========================================================= */
-
-.home-body {
-  background: #FAFAFF;
-  color: #20212A;
-}
-
-.home-shell {
-  width: min(100%, 430px);
-  min-height: 100vh;
-  margin: 0 auto;
-  background: #FAFAFF;
-  position: relative;
-  padding-bottom: calc(5.75rem + env(safe-area-inset-bottom));
-}
-
-.home-header {
-  height: 58px;
-  display: grid;
-  grid-template-columns: 44px 1fr 44px;
-  align-items: center;
-  border-bottom: 1px solid #ECECF4;
-  background: #FAFAFF;
-  padding: 0 1.25rem;
-}
-
-.home-icon-button {
-  width: 40px;
-  height: 40px;
-  border: 0;
-  background: transparent;
-  color: #3E3F4B;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.45rem;
-  padding: 0;
-}
-
-.home-title {
-  color: #063574;
-  font-size: 1.24rem;
-  font-weight: 800;
-  line-height: 1;
-  margin: 0;
-  text-align: center;
-}
-
-.home-main {
-  padding: 2.35rem 1.25rem 1.25rem;
-}
-
-.home-greeting {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 3.25rem;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 2.1rem;
-}
-
-.home-greeting h2 {
-  color: #20212A;
-  font-size: 1.82rem;
-  font-weight: 800;
-  line-height: 1.12;
-  margin: 0 0 0.45rem;
-}
-
-.home-greeting p {
-  color: #525565;
-  font-size: 1rem;
-  line-height: 1.3;
-  margin: 0;
-}
-
-.home-avatar {
-  width: 3.25rem;
-  height: 3.25rem;
-  border: 3px solid #FFFFFF;
-  border-radius: 50%;
-  box-shadow: 0 3px 9px rgba(8, 21, 47, 0.12);
-  overflow: hidden;
-}
-
-.home-avatar img,
-.home-avatar span {
-  width: 100%;
-  height: 100%;
-}
-
-.home-avatar img {
-  object-fit: cover;
-}
-
-.home-avatar span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #0D47A1;
-  color: #FFFFFF;
-  font-weight: 800;
   font-size: 0.95rem;
 }
 
-.home-actions {
-  display: grid;
-  gap: 1rem;
+.chat-message-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
-.home-action-card {
-  min-height: 7.4rem;
-  display: grid;
-  grid-template-columns: 4.5rem minmax(0, 1fr) 2rem;
+.chat-message--sent .chat-message-body {
+  align-items: flex-end;
+}
+
+.chat-message-author {
+  font-size: var(--font-size-caption);
+  color: var(--bn-text-muted);
+  margin-bottom: 0.25rem;
+  padding: 0 0.3rem;
+}
+
+.chat-bubble {
+  position: relative;
+  background: var(--color-neutral-100);
+  color: var(--bn-text);
+  padding: 0.75rem 0.9rem 1.4rem;
+  border-radius: var(--radius-md);
+  border-bottom-left-radius: 0.25rem;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-base);
+  word-break: break-word;
+}
+
+.chat-message--sent .chat-bubble {
+  background: var(--bn-green);
+  color: var(--color-white);
+  border-bottom-left-radius: var(--radius-md);
+  border-bottom-right-radius: 0.25rem;
+}
+
+.chat-time {
+  position: absolute;
+  bottom: 0.4rem;
+  right: 0.75rem;
+  font-size: 0.72rem;
+  color: var(--bn-text-muted);
+}
+
+.chat-message--sent .chat-time {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* -------------------- Notification système -------------------- */
+
+.chat-system-note {
+  display: flex;
   align-items: center;
-  gap: 0.2rem;
-  background: #FFFFFF;
-  border: 1px solid #ECECF4;
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 14px rgba(16, 24, 48, 0.08);
-  color: inherit;
-  padding: 1.25rem 1rem 1.25rem 1.5rem;
-  text-decoration: none;
+  gap: var(--space-2);
+  background: var(--color-primary-50);
+  border: 1px solid var(--color-primary-200);
+  color: var(--bn-text);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: 0.88rem;
+  line-height: 1.4;
 }
 
-.home-action-icon {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 0.42rem;
+.chat-system-note i {
+  flex-shrink: 0;
+  color: var(--bn-blue);
+  font-size: 1.1rem;
+}
+
+/* -------------------- Champ de saisie -------------------- */
+
+.chat-composer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
+  background: var(--bn-card-bg);
+  border-top: 1px solid var(--bn-border);
+  margin: 0;
+}
+
+.chat-attach {
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.55rem;
+  background: none;
+  border: none;
+  color: var(--bn-text-muted);
+  font-size: 1.25rem;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
 }
 
-.home-action-icon-primary {
-  background: #0D47A1;
-  color: #072F6E;
+.chat-attach:hover {
+  background: var(--color-neutral-100);
 }
 
-.home-action-icon-primary i {
-  color: #073778;
-  filter: brightness(1.15);
-}
-
-.home-action-icon-success {
-  background: #A6F4A6;
-  color: #247536;
-}
-
-.home-action-icon-muted {
-  background: #E4E6F0;
-  color: #0D47A1;
-}
-
-.home-action-copy {
+.chat-input {
+  flex: 1 1 auto;
   min-width: 0;
-  display: grid;
-  gap: 0.45rem;
+  border: none;
+  background: var(--color-neutral-100);
+  border-radius: var(--radius-pill);
+  padding: 0.65rem 1.1rem;
+  font-size: 0.95rem;
+  color: var(--bn-text);
 }
 
-.home-action-title {
-  color: #20212A;
-  font-size: 1.28rem;
+.chat-input::placeholder {
+  color: var(--color-neutral-400);
+}
+
+.chat-input:focus {
+  outline: none;
+  background: var(--color-neutral-50);
+  box-shadow: 0 0 0 0.15rem var(--color-primary-100);
+}
+
+.chat-send {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-circle);
+  border: none;
+  background: var(--bn-blue);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: background-color var(--transition-fast), transform var(--transition-tap);
+}
+
+.chat-send:hover {
+  background: var(--bn-blue-dark);
+}
+
+.chat-send:active {
+  transform: scale(0.96);
+}
+
+.chat-send:disabled {
+  opacity: 0.6;
+}
+
+/* ---------------------------------------------------------
+   7. Composants Dashboard — dashboard.html
+   Hooks JS à respecter (dashboard.js / dashboard-ui.js) :
+     [data-back]      -> bouton retour (délégué au JS)
+     #welcomeName     -> prénom inséré dans "Salut, ... !"
+     #userPhoto       -> <img> masquée par défaut
+     #userInitials    -> repli texte, visible par défaut
+   --------------------------------------------------------- */
+
+/* -------------------- Conteneur scrollable -------------------- */
+
+.dashboard-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* -------------------- Bloc de bienvenue -------------------- */
+
+.dashboard-welcome {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-4) var(--space-4);
+}
+
+.dashboard-welcome-title {
+  font-size: 1.5rem;
   font-weight: 800;
-  line-height: 1.23;
+  color: var(--bn-text);
+  margin: 0 0 0.3rem;
+  line-height: 1.25;
 }
 
-.home-action-text {
-  max-width: 12.25rem;
-  color: #555766;
+.dashboard-welcome-subtitle {
+  font-size: 0.92rem;
+  color: var(--bn-text-muted);
+  margin: 0;
+}
+
+/* -------------------- Avatar utilisateur -------------------- */
+
+.dashboard-avatar {
+  flex-shrink: 0;
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-circle);
+  background: var(--color-neutral-100);
+  border: 3px solid var(--color-white);
+  box-shadow: 0 0 0 1px var(--bn-border);
+  overflow: hidden;
+}
+
+.dashboard-avatar-photo {
   display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dashboard-avatar-initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: var(--color-primary-50);
+  color: var(--bn-blue);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* -------------------- Cartes du menu principal -------------------- */
+
+.dashboard-menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: 0 var(--space-4) var(--space-4);
+  overflow-y: auto;
+}
+
+.dashboard-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--bn-card-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-4);
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--transition-tap), box-shadow var(--transition-fast);
+}
+
+.dashboard-card:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.dashboard-card:active {
+  transform: scale(0.99);
+}
+
+.dashboard-card-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: var(--color-white);
+}
+
+.dashboard-card-icon--primary {
+  background: var(--bn-blue);
+}
+
+.dashboard-card-icon--secondary {
+  background: var(--color-secondary-400);
+}
+
+.dashboard-card-icon--neutral {
+  background: var(--color-neutral-600);
+}
+
+.dashboard-card-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.dashboard-card-title {
+  font-weight: 700;
   font-size: 1rem;
-  line-height: 1.2;
+  color: var(--bn-text);
+}
+
+.dashboard-card-subtitle {
+  font-size: 0.85rem;
+  color: var(--bn-text-muted);
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-.home-action-arrow {
-  justify-self: center;
-  font-size: 1.35rem;
+.dashboard-card-trailing {
+  flex-shrink: 0;
+  font-size: 1.1rem;
+  color: var(--color-secondary-500);
 }
 
-.home-action-arrow-primary {
-  color: #315F9D;
-}
-
-.home-action-arrow-success {
-  color: #3C944A;
-}
-
-.home-bottom-nav {
-  width: min(100%, 430px);
-  min-height: 5.15rem;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  align-items: center;
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: 0 auto;
-  padding: 0.55rem 1rem calc(0.55rem + env(safe-area-inset-bottom));
-  background: #FAFAFF;
-  border-top: 1px solid #ECECF4;
-  z-index: 20;
-}
-
-.home-bottom-link {
-  min-width: 0;
-  display: grid;
-  justify-items: center;
-  gap: 0.22rem;
-  color: #424451;
-  font-size: 0.82rem;
-  line-height: 1;
-  text-decoration: none;
-}
-
-.home-bottom-icon {
-  min-width: 3.45rem;
-  min-height: 1.65rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  color: #424451;
-  font-size: 1.25rem;
-}
-
-.home-bottom-link.is-active .home-bottom-icon {
-  background: #A6F4A6;
-  color: #17652E;
-}
-
-.home-bottom-link.is-active {
-  color: #20212A;
+.dashboard-card-trailing--external {
+  color: var(--bn-blue);
 }

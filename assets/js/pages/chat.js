@@ -1,26 +1,86 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('chat-form');
-  const input = document.getElementById('chat-input');
-  const messages = document.getElementById('chat-messages');
+import {
+  protectPage,
+} from "../guards/authGuard.js";
 
-  if (!form || !input || !messages) return;
+import {
+  getUserProfile,
+} from "../services/firestoreService.js";
 
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const value = input.value.trim();
-    if (!value) return;
+import {
+  sendMessage,
+} from "../services/chatService.js";
 
-    const userMessage = document.createElement('div');
-    userMessage.className = 'message user';
-    userMessage.textContent = value;
-    messages.appendChild(userMessage);
+let currentUser = null;
+let currentProfile = null;
 
-    const assistantMessage = document.createElement('div');
-    assistantMessage.className = 'message assistant';
-    assistantMessage.textContent = 'Merci pour votre message. Un conseiller vous répondra bientôt.';
-    messages.appendChild(assistantMessage);
+protectPage({
+  async onReady(user) {
 
-    input.value = '';
-    messages.scrollTop = messages.scrollHeight;
-  });
+    currentUser = user;
+
+    currentProfile = await getUserProfile(user.uid);
+
+    initializeChat();
+
+  },
 });
+
+function initializeChat() {
+
+  const form = document.getElementById("chatForm");
+
+  const input = document.getElementById("chatInput");
+
+  form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const texte = input.value.trim();
+
+    if (!texte) return;
+
+    const activeTab = document.querySelector(".chat-tab.active");
+
+    let canal = "general";
+
+    if (activeTab) {
+
+      if (activeTab.id === "tab-orientation")
+        canal = "orientation";
+
+      if (activeTab.id === "tab-bourses")
+        canal = "bourses";
+
+    }
+
+    try {
+
+      await sendMessage({
+
+        texte,
+
+        canal,
+
+        user: currentUser,
+
+        profile: currentProfile,
+
+      });
+
+      input.value = "";
+
+      input.focus();
+
+    }
+
+    catch (error) {
+    console.error("Erreur :", error);
+    console.error("Code :", error.code);
+    console.error("Message :", error.message);
+
+    alert(error.code + "\n\n" + error.message);
+    }
+
+  });
+
+}

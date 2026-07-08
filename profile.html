@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
@@ -16,7 +16,11 @@
           <li><a href="dashboard.html">Dashboard</a></li>
           <li><a href="chat.html">Chat</a></li>
           <li><a href="faq.html">FAQ</a></li>
-          <li><button type="button" data-logout>Deconnexion</button></li>
+          <li>
+            <button type="button" class="nav-link" data-logout>
+              Déconnexion
+            </button>
+          </li>
         </ul>
       </nav>
     </header>
@@ -24,10 +28,11 @@
     <main class="app-main app-container">
       <section class="card">
         <h1>Profil</h1>
-        <p class="muted">La modification du profil sera construite au Sprint 5.</p>
+        <p class="muted">
+          La modification du profil sera construite au Sprint 5.
+        </p>
       </section>
     </main>
-
-    <script type="module" src="assets/js/pages/protected.js"></script>
+    <script type="module" src="assets/js/pages/profile.js"></script>
   </body>
 </html>

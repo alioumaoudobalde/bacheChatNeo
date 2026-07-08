@@ -1,25 +1,22 @@
-import { avatars } from "../utils/avatars.js";
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase/firebase-config.js";
-import { auth } from "../services/authService.js";
+// assets/js/pages/profile.js
 
-const avatarGrid = document.getElementById("avatarGrid");
+import {
+  protectPage,
+  setupLogoutButtons,
+} from "../guards/authGuard.js";
+/**
+ * Initialisation de la page Profil.
+ *
+ * Le contenu sera développé lors du Sprint Profil.
+ */
+function initializeProfile() {
+  console.log("Profil prêt.");
+}
 
-avatars.forEach((avatar) => {
-  const img = document.createElement("img");
+protectPage({
+  async onReady() {
+    setupLogoutButtons();
 
-  img.src = avatar;
-  img.classList.add("avatar-option");
-
-  img.addEventListener("click", async () => {
-    const user = auth.currentUser;
-
-    await updateDoc(doc(db, "users", user.uid), {
-      photoUrl: avatar
-    });
-
-    alert("Avatar mis à jour !");
-  });
-
-  avatarGrid.appendChild(img);
+    initializeProfile();
+  },
 });

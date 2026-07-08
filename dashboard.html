@@ -1,93 +1,121 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#FAFAFF" />
-    <title>Accueil | Bacheliers Néo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/variables.css" />
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="stylesheet" href="assets/css/responsive.css" />
-  </head>
-  <body class="app-body home-body">
-    <div class="home-shell">
-      <header class="home-header">
-        <button class="home-icon-button" type="button" data-back aria-label="Retour">
-          <i class="bi bi-arrow-left" aria-hidden="true"></i>
-        </button>
-        <h1 class="home-title">Dioulacolon Student Portal</h1>
-      </header>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0D47A1">
+  <title>Accueil — Dioulacolon Student Portal</title>
 
-      <main class="home-main">
-        <section class="home-greeting" aria-labelledby="homeGreeting">
-          <div class="home-greeting-copy">
-            <h2 id="homeGreeting">Salut, <span id="welcomeName">...</span> !</h2>
-            <p>Que souhaitez-vous faire aujourd'hui ?</p>
-          </div>
-          <div class="home-avatar">
-            <img id="userPhoto" src="" alt="" hidden />
-            <span id="userInitials" aria-hidden="true">BN</span>
-          </div>
-        </section>
+  <!-- Bootstrap 5 (CSS uniquement) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-        <section class="home-actions" aria-label="Actions principales">
-          <a class="home-action-card" href="https://orientation.campusen.sn" target="_blank" rel="noopener">
-            <span class="home-action-icon home-action-icon-primary">
-              <i class="bi bi-mortarboard-fill" aria-hidden="true"></i>
-            </span>
-            <span class="home-action-copy">
-              <span class="home-action-title">Plateforme<br />Campusen</span>
-              <span class="home-action-text">Accès aux bourses et orientations</span>
-            </span>
-            <i class="bi bi-box-arrow-up-right home-action-arrow home-action-arrow-primary" aria-hidden="true"></i>
-          </a>
+  <!-- Styles custom (ordre important : variables -> style -> responsive) -->
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body class="page-app">
 
-          <a class="home-action-card" href="chat.html">
-            <span class="home-action-icon home-action-icon-success">
-              <i class="bi bi-chat-left-text-fill" aria-hidden="true"></i>
-            </span>
-            <span class="home-action-copy">
-              <span class="home-action-title">Chat d'entraide</span>
-              <span class="home-action-text">Échangez avec la communauté</span>
-            </span>
-            <i class="bi bi-chevron-right home-action-arrow home-action-arrow-success" aria-hidden="true"></i>
-          </a>
+  <div class="app-shell">
 
-          <a class="home-action-card" href="faq.html">
-            <span class="home-action-icon home-action-icon-muted">
-              <i class="bi bi-question-square-fill" aria-hidden="true"></i>
-            </span>
-            <span class="home-action-copy">
-              <span class="home-action-title">Foire Aux Questions</span>
-              <span class="home-action-text">Réponses à vos questions Campusen</span>
-            </span>
-            <i class="bi bi-chevron-right home-action-arrow home-action-arrow-primary" aria-hidden="true"></i>
-          </a>
-        </section>
-      </main>
+    <!-- En-tête -->
+    <header class="app-header">
+      <button type="button" class="chat-back" data-back aria-label="Retour">
+        <i class="bi bi-arrow-left" aria-hidden="true"></i>
+      </button>
+      <h1 class="app-header-title">Dioulacolon Student Portal</h1>
+    </header>
 
-      <nav class="home-bottom-nav" aria-label="Navigation principale">
-        <a class="home-bottom-link is-active" href="dashboard.html" aria-current="page">
-          <span class="home-bottom-icon"><i class="bi bi-house-door-fill" aria-hidden="true"></i></span>
-          <span>Home</span>
+    <!-- Contenu -->
+    <div class="dashboard-body">
+
+      <!-- Bloc de bienvenue -->
+      <section class="dashboard-welcome">
+        <div class="dashboard-welcome-text">
+          <h2 class="dashboard-welcome-title">Salut, <span id="welcomeName">...</span>&nbsp;!</h2>
+          <p class="dashboard-welcome-subtitle">Que souhaitez-vous faire aujourd'hui&nbsp;?</p>
+        </div>
+
+        <div class="dashboard-avatar">
+          <img id="userPhoto" class="dashboard-avatar-photo" src="" alt="" hidden>
+          <span id="userInitials" class="dashboard-avatar-initials">--</span>
+        </div>
+      </section>
+
+      <!-- Menu principal -->
+      <nav class="dashboard-menu" aria-label="Menu principal">
+
+        <a class="dashboard-card" href="https://www.campusen.sn/" target="_blank" rel="noopener noreferrer">
+          <span class="dashboard-card-icon dashboard-card-icon--primary">
+            <i class="bi bi-mortarboard-fill" aria-hidden="true"></i>
+          </span>
+          <span class="dashboard-card-text">
+            <span class="dashboard-card-title">Plateforme Campusen</span>
+            <span class="dashboard-card-subtitle">Accès aux bourses et...</span>
+          </span>
+          <span class="dashboard-card-trailing dashboard-card-trailing--external">
+            <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+          </span>
         </a>
-        <a class="home-bottom-link" href="chat.html">
-          <span class="home-bottom-icon"><i class="bi bi-chat-left-text" aria-hidden="true"></i></span>
-          <span>Chat</span>
+
+        <a class="dashboard-card" href="chat.html">
+          <span class="dashboard-card-icon dashboard-card-icon--secondary">
+            <i class="bi bi-chat-left-text-fill" aria-hidden="true"></i>
+          </span>
+          <span class="dashboard-card-text">
+            <span class="dashboard-card-title">Chat d'entraide</span>
+            <span class="dashboard-card-subtitle">Échangez avec la...</span>
+          </span>
+          <span class="dashboard-card-trailing">
+            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+          </span>
         </a>
-        <a class="home-bottom-link" href="faq.html">
-          <span class="home-bottom-icon"><i class="bi bi-question-square" aria-hidden="true"></i></span>
-          <span>FAQ</span>
+
+        <a class="dashboard-card" href="faq.html">
+          <span class="dashboard-card-icon dashboard-card-icon--neutral">
+            <i class="bi bi-question-circle-fill" aria-hidden="true"></i>
+          </span>
+          <span class="dashboard-card-text">
+            <span class="dashboard-card-title">Foire Aux Questions</span>
+            <span class="dashboard-card-subtitle">Réponses à vos...</span>
+          </span>
+          <span class="dashboard-card-trailing">
+            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+          </span>
         </a>
-        <a class="home-bottom-link" href="profile.html">
-          <span class="home-bottom-icon"><i class="bi bi-person" aria-hidden="true"></i></span>
-          <span>Profile</span>
-        </a>
+
       </nav>
+
     </div>
 
-    <script type="module" src="assets/js/pages/dashboard-ui.js"></script>
-    <script type="module" src="assets/js/pages/dashboard.js"></script>
-  </body>
+    <!-- Navigation basse -->
+    <nav class="app-bottom-nav" aria-label="Navigation principale">
+      <a href="dashboard.html" class="bottom-nav-item active" aria-current="page">
+        <span class="bottom-nav-icon"><i class="bi bi-house-fill" aria-hidden="true"></i></span>
+        <span>Home</span>
+      </a>
+      <a href="chat.html" class="bottom-nav-item">
+        <span class="bottom-nav-icon"><i class="bi bi-chat-left-text" aria-hidden="true"></i></span>
+        <span>Chat</span>
+      </a>
+      <a href="faq.html" class="bottom-nav-item">
+        <span class="bottom-nav-icon"><i class="bi bi-file-earmark-question" aria-hidden="true"></i></span>
+        <span>FAQ</span>
+      </a>
+      <a href="profile.html" class="bottom-nav-item">
+        <span class="bottom-nav-icon"><i class="bi bi-person" aria-hidden="true"></i></span>
+        <span>Profile</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <!-- Interactions UI locales (bouton retour) -->
+  <script type="module" src="assets/js/pages/dashboard-ui.js"></script>
+
+  <!-- Logique métier (authGuard.js / firestoreService.js) -->
+  <script type="module" src="assets/js/pages/dashboard.js"></script>
+</body>
 </html>

@@ -87,17 +87,10 @@ if (registerForm) {
             setFormLoading(registerForm, true);
 
             await register(
-
                 fullName,
-
                 email,
-
                 password,
-
-                photoFile
-
             );
-
             window.location.href = getRedirectAfterLogin("dashboard.html");
 
         }

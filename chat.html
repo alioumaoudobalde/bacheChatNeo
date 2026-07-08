@@ -1,33 +1,156 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chat | Bacheliers Néo</title>
-    <link rel="stylesheet" href="assets/css/variables.css" />
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="stylesheet" href="assets/css/responsive.css" />
-  </head>
-  <body class="app-body">
-    <header class="site-header">
-      <nav class="app-nav app-container">
-        <a href="dashboard.html" class="brand">Bacheliers Néo</a>
-        <ul class="nav-links">
-          <li><a href="dashboard.html">Dashboard</a></li>
-          <li><a href="faq.html">FAQ</a></li>
-          <li><a href="profile.html">Profil</a></li>
-          <li><button type="button" data-logout>Deconnexion</button></li>
-        </ul>
-      </nav>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0D47A1">
+  <title>Chat d'Entraide — Bacheliers Néo</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Styles custom (ordre important : variables -> style -> responsive) -->
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body class="page-app">
+
+  <div class="app-shell">
+
+    <!-- En-tête -->
+    <header class="chat-header">
+      <a href="dashboard.html" class="chat-back" aria-label="Retour">
+        <i class="bi bi-arrow-left" aria-hidden="true"></i>
+      </a>
+      <h1 class="chat-title">Chat d'Entraide</h1>
+      <span class="chat-header-spacer" aria-hidden="true"></span>
     </header>
 
-    <main class="app-main app-container">
-      <section class="card">
-        <h1>Chat</h1>
-        <p class="muted">Le chat temps reel sera construit au Sprint 4.</p>
-      </section>
-    </main>
+    <!-- Onglets des canaux -->
+    <nav class="chat-tabs" aria-label="Canaux de discussion">
+      <ul class="nav" id="channelTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="chat-tab active"
+            id="tab-general"
+            data-bs-toggle="tab"
+            data-bs-target="#messages-general"
+            type="button"
+            role="tab"
+            aria-controls="messages-general"
+            aria-selected="true">
+            Général
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="chat-tab"
+            id="tab-orientation"
+            data-bs-toggle="tab"
+            data-bs-target="#messages-orientation"
+            type="button"
+            role="tab"
+            aria-controls="messages-orientation"
+            aria-selected="false">
+            Orientation
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="chat-tab"
+            id="tab-bourses"
+            data-bs-toggle="tab"
+            data-bs-target="#messages-bourses"
+            type="button"
+            role="tab"
+            aria-controls="messages-bourses"
+            aria-selected="false">
+            Bourses
+          </button>
+        </li>
+      </ul>
+    </nav>
 
-    <script type="module" src="assets/js/pages/protected.js"></script>
-  </body>
+    <!-- Zone de messages : un conteneur par canal, entièrement généré par chat.js
+         (aucun message statique ici -> une seule source de vérité : Firestore) -->
+    <div class="tab-content chat-body" id="channelPanels">
+
+      <div
+        id="messages-general"
+        class="tab-pane fade show active chat-messages"
+        role="tabpanel"
+        aria-labelledby="tab-general"
+        data-channel="general">
+      </div>
+
+      <div
+        id="messages-orientation"
+        class="tab-pane fade chat-messages"
+        role="tabpanel"
+        aria-labelledby="tab-orientation"
+        data-channel="orientation">
+      </div>
+
+      <div
+        id="messages-bourses"
+        class="tab-pane fade chat-messages"
+        role="tabpanel"
+        aria-labelledby="tab-bourses"
+        data-channel="bourses">
+      </div>
+
+    </div>
+
+    <!-- Champ de saisie (partagé, s'applique au canal actif) -->
+    <form id="chatForm" class="chat-composer">
+      <button type="button" class="chat-attach" id="chatAttachBtn" aria-label="Joindre un fichier">
+        <i class="bi bi-paperclip" aria-hidden="true"></i>
+      </button>
+      <input type="file" id="chatAttachInput" name="attachment" hidden>
+
+      <label for="chatInput" class="visually-hidden">Écrire un message</label>
+      <input
+        type="text"
+        class="chat-input"
+        id="chatInput"
+        name="message"
+        placeholder="Écrire un message..."
+        autocomplete="off">
+
+      <button type="submit" class="chat-send" id="chatSendBtn" aria-label="Envoyer le message">
+        <i class="bi bi-send-fill" aria-hidden="true"></i>
+      </button>
+    </form>
+
+    <!-- Navigation basse -->
+    <nav class="app-bottom-nav" aria-label="Navigation principale">
+      <a href="dashboard.html" class="bottom-nav-item">
+        <span class="bottom-nav-icon"><i class="bi bi-house" aria-hidden="true"></i></span>
+        <span>Home</span>
+      </a>
+      <a href="chat.html" class="bottom-nav-item active" aria-current="page">
+        <span class="bottom-nav-icon"><i class="bi bi-chat-left-text-fill" aria-hidden="true"></i></span>
+        <span>Chat</span>
+      </a>
+      <a href="faq.html" class="bottom-nav-item">
+        <span class="bottom-nav-icon"><i class="bi bi-file-earmark-question" aria-hidden="true"></i></span>
+        <span>FAQ</span>
+      </a>
+      <a href="profile.html" class="bottom-nav-item">
+        <span class="bottom-nav-icon"><i class="bi bi-person" aria-hidden="true"></i></span>
+        <span>Profile</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <!-- Bootstrap JS (bundle) — requis ici pour le composant natif "tab" des canaux -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Logique métier (firestoreService.js : écoute temps réel par canal, envoi de message) -->
+  <script type="module" src="assets/js/pages/chat.js"></script>
+</body>
 </html>
